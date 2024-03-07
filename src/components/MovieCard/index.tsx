@@ -3,28 +3,32 @@ import styles from "./styles.module.scss";
 
 export const imagePath = `https://image.tmdb.org/t/p/original`;
 
-/**
- * @todo Add type for movie
- */
 type Props = {
-  movie: any;
+  id: number;
+  title: string;
+  path: string;
+  releaseDate: string;
+  rating: number;
+  handleclick: (id: number) => void;
 };
 
-const MovieCard = ({ movie }: Props) => {
+const MovieCard = ({
+  id,
+  title,
+  path,
+  releaseDate,
+  rating,
+  handleclick,
+}: Props) => {
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={handleclick(id)}>
       <div className={styles.image}>
-        <Image
-          alt={movie.original_title}
-          src={imagePath + movie.poster_path}
-          width={150}
-          height={225}
-        />
+        <Image alt={title} src={imagePath + path} width={150} height={225} />
       </div>
       <div className={styles.content}>
-        <h3 className={styles.title}>{movie.original_title}</h3>
-        <p>{movie.release_date}</p>
-        <p>{`${Math.round(movie.vote_average * 10) / 10} / 10`}</p>
+        <h3 className={styles.title}>{title}</h3>
+        <p>Release Date: {releaseDate}</p>
+        <p>Rating: {`${Math.round(rating * 10) / 10} / 10`}</p>
       </div>
     </div>
   );
